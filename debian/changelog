@@ -1,0 +1,5 @@
+python-monotime (1.0-1) unstable; urgency=low
+
+  * First upstream release.
+
+ -- Avery Pennarun <apenwarr@google.com>  Thu, 09 Aug 2012 18:12:12 -0400

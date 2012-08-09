@@ -1,0 +1,18 @@
+Source: python-monotime
+Section: python
+Priority: optional
+Maintainer: Avery Pennarun <apenwarr@google.com>
+Uploaders: Avery Pennarun <apenwarr@google.com>
+Build-Depends: debhelper (>= 7.0.50~), python, python-support (>= 0.3)
+Standards-Version: 3.8.3
+Homepage: TODO
+
+Package: python-monotime
+Architecture: any
+Depends: ${python:Depends}, ${misc:Depends}
+XB-Python-Version: ${python:Versions}
+Description: time.monotonic() for older python versions
+ This module provides time.monotonic() in python versions before 3.3.
+ To use it in your program, try 'import monotime' and then 'import time'.
+ If your system supports monotonic time, hasattr(time, 'monotonic') will
+ be true.

@@ -1,0 +1,14 @@
+python-monotime for Debian
+--------------------------
+
+This brings time.monotonic() to versions of python that doesn't have it (ie.
+versions before python 3.3).  Example:
+
+	try:
+	  import monotime
+	except ImportError:
+	  pass  # maybe we already have time.monotonic
+	import time
+	
+	print time.monotonic()
+
