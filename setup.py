@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 from distutils.core import setup, Extension
+import sys
 
-_mod = Extension('_monotime', sources=['_monotime.c'], libraries=['rt'])
+_libs = []
+if sys.platform != 'darwin':
+  _libs.append('rt')
+_mod = Extension('_monotime', sources=['_monotime.c'], libraries=_libs)
 
 setup(
     name='Monotime',

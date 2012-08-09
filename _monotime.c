@@ -16,20 +16,48 @@
 #include <Python.h>
 #include <time.h>
 
+
+#ifdef __MACH__  /* MacOS X doesn't have clock_gettime() */
+
+
+#include <mach/mach.h>
+#include <mach/mach_time.h>
+
+static PyObject *monotonic(PyObject *self, PyObject *args)
+{
+  static double factor;
+  uint64_t now;
+
+  if (!PyArg_ParseTuple(args, ""))
+    return NULL;
+
+  if (!factor) {
+    mach_timebase_info_data_t timebase;
+    mach_timebase_info(&timebase);
+    factor = 1.0 * timebase.numer / timebase.denom / 1e9;
+  }
+
+  now = mach_absolute_time();
+  return Py_BuildValue("d", (double)(now * factor));
+}
+
+
+#else  /* !__MACH__, so try POSIX.1-2001 */
+
+
 #ifdef CLOCK_MONOTONIC_RAW
 # define WHICH_CLOCK  CLOCK_MONOTONIC_RAW
 #else
 # define WHICH_CLOCK  CLOCK_MONOTONIC
 #endif
 
-
 static PyObject *monotonic(PyObject *self, PyObject *args)
 {
   struct timespec ts;
-  
+
   if (!PyArg_ParseTuple(args, ""))
     return NULL;
-  
+
 #ifdef CLOCK_MONOTONIC_RAW
   /*
    * Even if defined, the running kernel might not support it, in which case
@@ -41,9 +69,12 @@ static PyObject *monotonic(PyObject *self, PyObject *args)
 #endif
   if (clock_gettime(CLOCK_MONOTONIC, &ts) < 0)
     return PyErr_SetFromErrno(PyExc_OSError);
-  
+
   return Py_BuildValue("d", (double)(ts.tv_sec * 1.0 + ts.tv_nsec / 1e9));
 }
+
+
+#endif  /* __MACH__ */
 
 
 static PyMethodDef _monotime_methods[] = {
