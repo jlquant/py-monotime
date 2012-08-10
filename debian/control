@@ -5,7 +5,7 @@ Maintainer: Avery Pennarun <apenwarr@google.com>
 Uploaders: Avery Pennarun <apenwarr@google.com>
 Build-Depends: debhelper (>= 7.0.50~), python, python-support (>= 0.3)
 Standards-Version: 3.8.3
-Homepage: TODO
+Homepage: http://code.google.com/p/py-monotime/
 
 Package: python-monotime
 Architecture: any

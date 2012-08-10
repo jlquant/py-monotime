@@ -13,7 +13,7 @@ setup(
     description='time.monotonic() for older python versions',
     author='Avery Pennarun',
     author_email='apenwarr@google.com',
-    url='TODO',
+    url='http://code.google.com/p/py-monotime/',
     packages=['monotime'],
     ext_modules=[_mod],
     package_dir={'monotime': ''},
