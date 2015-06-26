@@ -1,0 +1,1 @@
+import monotime, then import time, and you'll find that time.monotonic() is available, even in versions of python before 3.3.  This lets you write programs to use the time.monotonic() API right now, and not have to change them later.  Works on Linux and MacOS X.
